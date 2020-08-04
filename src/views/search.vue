@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
     <div class="search">
         <div class="container grid-side-500">
             <!-- Search Options -->
@@ -129,9 +130,124 @@ export default {
         HeroSearchResultsHeader,
         HeroSearchResult,
         HeroSearchNoResults
+=======
+  <div class="search">
+    <h1/>
+
+
+    <div id="searchContent">
+      <div class="container grid-side-500">
+        <div class="d-flex justify-content-center">
+          <div>
+            <b-form-tags v-model="value" no-outer-focus class="input-form">
+              <template v-slot="{ tags, inputAttrs, inputHandlers, tagVariant, addTag, removeTag }">
+                <b-input-group class="search-form">
+                  <b-form-input
+                    v-model="text"
+                    v-bind="inputAttrs"
+                    v-on:keyup="changeTags"
+                    placeholder="New tag - Press enter to add"
+                    class="search-form"
+                  ></b-form-input>
+                </b-input-group>
+                <div class="d-inline-block" style="font-size: 1.5rem;">
+                  <b-form-tag
+                    v-for="tag in tags"
+                    @remove="removeTag(tag)"
+                    :key="tag"
+                    :title="tag"
+                    :variant="tagVariant"
+                    class="tag"
+                  >{{ tag }}</b-form-tag>
+                </div>
+              </template>
+            </b-form-tags>
+          </div>
+        </div>
+        <b-row class="justify-content-md-center">
+          <b-navbar type="dark" variant="dark" class="dropdownBar">
+              <b-navbar-nav align="center" small justify class="dropdownItems">
+                <b-nav-text><b>Sort:</b></b-nav-text>
+                <b-nav-item></b-nav-item>
+                <b-nav-item>Name</b-nav-item>
+
+                <b-nav-item-dropdown text="Element" @click.stop="">
+                  <b-form-checkbox-group
+                    v-model="selected"
+                    :options="elementOptions"
+                    switches
+                    stacked
+                    class="switchbox"
+                  ></b-form-checkbox-group>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown text="Class" @click.stop="">
+                  <b-form-checkbox-group
+                    v-model="selected"
+                    :options="classOptions"
+                    switches
+                    stacked
+                    class="switchbox"
+                  ></b-form-checkbox-group>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown text="Grade" @click.stop="">
+                  <b-form-checkbox-group
+                    v-model="selected"
+                    :options="gradeOptions"
+                    switches
+                    stacked
+                    class="switchbox"
+                  ></b-form-checkbox-group>
+                </b-nav-item-dropdown>
+
+                <b-nav-item>Atk</b-nav-item>
+                <b-nav-item>HP</b-nav-item>
+                <b-nav-item>Def</b-nav-item>
+                <b-nav-item>Spd</b-nav-item>
+              </b-navbar-nav>
+            </b-navbar>
+        </b-row>
+        <h1 />
+        <b-row class="justify-content-md-center">
+          <div>
+            <b-table
+            small
+            :items="printHeroes"
+            :fields="fields"
+            responsive="sm"
+            class="table"
+            selectable
+            select-mode="single"
+            borderless
+            thead-class="hidden_header"
+            @row-clicked="loadDetailed"
+            ><template v-slot:cell(Face_URL)="data">
+              <img :src="data.value">
+            </template>
+            </b-table>
+          </div>
+        </b-row>
+      </div>
+    </div>
+
+
+  </div>
+</template>
+
+<script>
+import heroData from '../assets/hero-data.json'
+
+export default {
+    name: 'search',
+    components: {
+
+>>>>>>> Stashed changes
     },
+
     data() {
         return {
+<<<<<<< Updated upstream
             heroSearchForm: {
                 name: '',
                 elements: [],
@@ -139,6 +255,27 @@ export default {
                 grades: [],
                 imprint: []
             },
+=======
+            text: '',
+            value: [],
+            fields: [
+              { key: 'ID',
+                tdClass: 'tableColumn' },
+              { key: 'Face_URL',
+                tdClass: 'tableColumn' },
+              { key: 'Name',
+                tdClass: 'NameColumn' },
+              { key: 'Element',
+                tdClass: 'tableColumn' },
+              { key: 'Class',
+                tdClass: 'tableColumn' },
+            ],
+            heroData: heroData,
+            acceptedTags: [
+                // Elements
+                'Fire', 'Ice', 'Earth', 'Light', 'Dark'
+            ],
+>>>>>>> Stashed changes
             imprints: [
                 { text: 'Imprint', value: null },
                 'Attack',
@@ -159,21 +296,23 @@ export default {
         }
     },
     methods: {
-        search() {
-            return heroSearchService.search(this.heroSearchForm).then((results) => {
-                this.heroSearchResults = results
-            })
-        },
-        clearSearch() {
-            this.heroSearchResults = []
-            this.heroSearchForm.name = ''
-            this.heroSearchForm.elements = []
-            this.heroSearchForm.classes = []
-            this.heroSearchForm.grades = []
+        changeTags(e) {
+          if (e.keyCode === 13 && this.text != ""){
+            for(var i = 0; i < this.acceptedTags.length; i++)
+              if(this.text.toUpperCase() == this.acceptedTags[i].toUpperCase()){
+                this.value.push(this.acceptedTags[i]);
+                this.text = '';
+                break;
+              }
+          }
+          else if (e.keyCode === 8 && this.text == ""){
+            this.value.pop();
+          }
         },
         renderSymbol(symbol) {
             return require(`@/assets/${symbol}`)
         },
+<<<<<<< Updated upstream
         onElementSelection(value) {
             this.heroSearchForm.elements = value
         },
@@ -183,11 +322,48 @@ export default {
         onGradeSelection(value) {
             this.heroSearchForm.grades = value
         }
+=======
+        loadDetailed(e){
+          console.log(e.ID);
+          this.sidebarToggle();
+        },
+        sidebarToggle(){
+          if(document.getElementById("searchContent").style.marginRight == "50vw"){
+            document.getElementById("searchContent").style.transitionDuration = "0.35s";
+            document.getElementById("searchContent").style.marginRight = "";
+          }
+          else {
+            document.getElementById("searchContent").style.transitionDuration = "0.35s";
+            document.getElementById("searchContent").style.marginRight = "50vw";
+          }
+        },
+    },
+    computed: {
+      printHeroes() {
+
+        return heroData.map((hero) => {
+          if(hero.Name != ""){
+            return {"ID": hero.ID,
+                    "Name": hero.Name,
+                    "Face_URL": hero.Face_URL,
+                    "Element": hero.Element,
+                    "Class": hero.Class
+                  };
+          }
+        })
+      },
+      printArtifacts() {
+        return null;
+      },
+      printItems() {
+        return null;
+      },
+>>>>>>> Stashed changes
     }
 }
 </script>
 
-<style scoped lang="less">
+<style>
 @import '~../less/variables.less';
 .search {
     margin-top: 3vh;
@@ -195,20 +371,94 @@ export default {
 }
 
 .input-form {
+    width: 30vw;
+    background-color: #252b35;
+    color: #f1f1f1;
+    box-shadow: none !important;
+    border: 0;
+}
+.search-form {
+    background-color: #222731;
+    color: #f1f1f1;
+    box-shadow: none !important;
+    border: 0;
+}
+<<<<<<< Updated upstream
+
+.grid-side-500 {
+    display: grid;
+    column-gap: 20px;
+    height: 90vh;
+=======
+.search-form :focus {
     background-color: #222731;
     color: #f1f1f1;
     box-shadow: none !important;
     border: 0;
 }
 
-.grid-side-500 {
-    display: grid;
-    column-gap: 20px;
-    height: 90vh;
+.dropdownBar {
+  border: 1px solid #222731;
+  border-radius: 3px;
+  box-shadow: none !important;
+  outline: 0;
+  height: 3.5vh;
+  max-width: 100vw;
+  width: 700px;
+}
+.dropdownItems {
+  width: 700px;
+  max-width: 80vw;
+}
+
+.tag {
+  font-size: 14px;
+  background-color: #222731;
+  border: 1px solid #f1f1f1;
+  border-radius: 3px;
+  box-shadow: none !important;
+  outline: 0;
+>>>>>>> Stashed changes
 }
 @media (min-width: 500px) {
     .grid-side-500 {
         grid-template-columns: 200px auto;
     }
 }
+<<<<<<< Updated upstream
+=======
+
+
+.table{
+  color: #f1f1f1;
+  background-color: #252b35;
+  box-shadow: none !important;
+  border: 0;
+}
+.hidden_header {
+  display: none;
+}
+.tableColumn {
+  width: 100px !important;
+  font-size: 10px;
+}
+.NameColumn {
+}
+
+.navDrawer{
+  width: 50vw;
+}
+@media only screen and (max-width: 600px) {
+  .navDrawer{
+    width: 100vw;
+  }
+  .input-form {
+    width: 100vw;
+  }
+}
+
+
+.detailedContent {
+}
+>>>>>>> Stashed changes
 </style>

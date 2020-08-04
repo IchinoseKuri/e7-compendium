@@ -14,17 +14,11 @@
                             Mechanics
                         </router-link>
                     </li>
-                    <b-nav-item-dropdown text="Game Data" right>
-                        <router-link to="/search" role="link" tag="b-dropdown-item">
-                            Heroes
+                    <li class="nav-item" role="menuitem">
+                        <router-link role="link" class="nav-link" to="/search">
+                            Game Data
                         </router-link>
-                        <router-link to="/search" role="link" tag="b-dropdown-item">
-                            Artifacts
-                        </router-link>
-                        <router-link to="/search" role="link" tag="b-dropdown-item">
-                            Items
-                        </router-link>
-                    </b-nav-item-dropdown>
+                    </li>
                     <b-nav-item-dropdown text="Resources" right>
                         <router-link to="/guides" role="link" tag="b-dropdown-item">
                             Beginner Progression
