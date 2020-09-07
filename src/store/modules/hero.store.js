@@ -20,13 +20,16 @@ const getters = {
 const actions = {
     /**
      * This function will need modification when a backend is implemented.
-     * @param store
      * @returns {Promise<>}
      */
-    loadAllHeroData(store) {
-        return heroSearchService.queryAll().then((data) => {
-            store.commit('cacheHeroData', { heroData: data })
-        })
+    loadAllHeroData({ commit, state }) {
+        // Don't make the expensive backend call again if we already did that.
+        if (state.heroData.length === 0) {
+            return heroSearchService.queryAll().then((data) => {
+                commit('cacheHeroData', { heroData: data })
+            })
+        }
+        return Promise.resolve()
     }
 }
 

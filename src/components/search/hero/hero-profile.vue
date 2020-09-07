@@ -1,10 +1,6 @@
 <template>
     <b-container fluid class="detailed-content">
-        <h1 />
-        <!-- div>
-            {{ heroProfile }}
-        </div -->
-        <div class="container">
+        <div v-if="heroProfile.id" class="container">
             <b-col sm="1" />
             <b-col>
                 <b-row>
@@ -547,6 +543,9 @@
             </b-col>
             <b-col sm="1" />
         </div>
+        <div vif="!heroProfile.id">
+            No hero data available for ID: {{ heroId }}
+        </div>
     </b-container>
 </template>
 
@@ -583,47 +582,47 @@ export default {
             return this.getHeroProfile(this.heroId)
         },
         attack: {
-            get: function () {
+            get() {
                 return HeroStatService.getAttack(this.heroProfile, this.level, this.awaken)
             }
         },
         health: {
-            get: function () {
+            get() {
                 return HeroStatService.getHealth(this.heroProfile, this.level, this.awaken)
             }
         },
         defense: {
-            get: function () {
+            get() {
                 return HeroStatService.getDefense(this.heroProfile, this.level, this.awaken)
             }
         },
         speed: {
-            get: function () {
+            get() {
                 return HeroStatService.getSpeed(this.heroProfile, this.level, this.awaken)
             }
         },
         critChance: {
-            get: function () {
+            get() {
                 return HeroStatService.getCritChance(this.heroProfile, this.awaken)
             }
         },
         critDamage: {
-            get: function () {
+            get() {
                 return HeroStatService.getCritDamage(this.heroProfile, this.awaken)
             }
         },
         effectiveness: {
-            get: function () {
+            get() {
                 return HeroStatService.getEffectiveness(this.heroProfile, this.awaken)
             }
         },
         resistance: {
-            get: function () {
+            get() {
                 return HeroStatService.getResistance(this.heroProfile, this.awaken)
             }
         },
         dualattackchance: {
-            get: function () {
+            get() {
                 return HeroStatService.getDualAttack()
             }
         }

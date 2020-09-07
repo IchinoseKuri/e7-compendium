@@ -15,7 +15,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item" role="menuitem">
-                        <router-link role="link" class="nav-link" to="/search">
+                        <router-link role="link" class="nav-link" to="/search/hero">
                             Game Data
                         </router-link>
                     </li>

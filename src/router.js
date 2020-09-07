@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home'
-import Search from './views/search'
-import Mechanics from './views/mechanics'
-import Guides from './views/guides'
+import Home from '@/views/Home'
+import SearchHero from '@/views/search-hero'
+import Mechanics from '@/views/mechanics'
+import Guides from '@/views/guides'
+import Hero from '@/views/hero'
 
 Vue.use(Router)
 
@@ -11,28 +12,32 @@ export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
-        /* Home */ {
+        {
             path: '/',
             name: 'home',
             component: Home
         },
-        /* Search */ {
-            path: '/search',
-            name: 'search',
-            component: Search
+        {
+            path: '/search/hero',
+            name: 'search-hero',
+            component: SearchHero
         },
-        /* Mechanics */ {
+        {
             path: '/mechanics',
             name: 'mechanics',
             component: Mechanics
         },
-        /* Guides */ {
+        {
             path: '/guides',
             name: 'guides',
             component: Guides
         },
-
-        /* About */ {
+        {
+            path: '/hero/:id',
+            name: 'hero',
+            component: Hero
+        },
+        {
             path: '/about',
             name: 'about',
             // route level code-splitting

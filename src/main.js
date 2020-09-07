@@ -8,8 +8,14 @@ library.add(faUserSecret)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Bootstrap
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BIcon, BIconArrowUp, BIconArrowDown, BIconStarFill } from 'bootstrap-vue'
+
 Vue.use(BootstrapVue)
+Vue.component('BIcon', BIcon)
+Vue.component('BIconArrowUp', BIconArrowUp)
+Vue.component('BIconArrowDown', BIconArrowDown)
+Vue.component('BIconStarFill', BIconStarFill)
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
